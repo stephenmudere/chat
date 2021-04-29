@@ -168,8 +168,9 @@ class Conversation extends BaseModel
 
         /** @var Conversation $conversation */
         $conversation = $this->create(['data' => $payload['data'], 'direct_message' => (bool) $payload['direct_message']]);
-
+        //dd($conversation);
         if ($payload['participants']) {
+            //dd($payload['participants']);
             $conversation->addParticipants($payload['participants']);
         }
 

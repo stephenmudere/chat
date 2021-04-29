@@ -83,8 +83,10 @@ class ConversationService
      *
      * @return Conversation
      */
-    public function between(Model $participantOne, Model $participantTwo)
+    public function between(Model $participantOne, Model $participantTwo,$type="")
     {
+        if (''==$type) {
+       
         $participantOneConversationIds = $this->conversation
             ->participantConversations($participantOne, true)
             ->pluck('id');
@@ -95,7 +97,15 @@ class ConversationService
 
         $common = $this->getConversationsInCommon($participantOneConversationIds, $participantTwoConversationIds);
 
-        return $common ? $this->conversation->findOrFail($common[0]) : null;
+
+         }else{
+            $ud=\DB::table('chat_conversations')->where("data",'{"type":"'.$type.'"}')->get();
+            if (isset($ud[0]->id)) {
+               $common[0]= $ud[0]->id;
+            }
+         }
+
+        return isset($common[0]) ? $this->conversation->findOrFail($common[0]) : null;
     }
 
     /**
