@@ -1,4 +1,3 @@
-<p align="left"><img src="menu.png" alt="chat" width="130px"></p>
 
 
 ## Chat
